@@ -1,0 +1,8 @@
+.carselector-box {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  height: 100%;
+  box-shadow: 0px 2px 9px 10px rgba(0, 0, 0, 0.75);
+  border-radius: 10px;
+}

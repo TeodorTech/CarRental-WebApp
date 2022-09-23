@@ -1,0 +1,28 @@
+nav {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  font-size: 1rem;
+  background-color: rgba(8, 8, 8, 0.219);
+  margin-top: 0;
+}
+.nav-title,
+.nav-login {
+  display: flex;
+  align-items: center;
+  gap: 5px;
+}
+.nav-title h1 {
+  font-size: 2rem;
+}
+.nav-login {
+  margin-right: 2rem;
+}
+nav ul {
+  display: flex;
+  list-style: none;
+  gap: 7rem;
+  margin-right: 1rem;
+  font-size: 2rem;
+  text-decoration: none;
+}

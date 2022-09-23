@@ -1,0 +1,35 @@
+.fleet-container {
+  margin: 1rem 3rem;
+}
+.makes-flex {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1rem;
+}
+.make {
+  display: flex;
+  flex-direction: column;
+  border: 3px solid black;
+  align-items: center;
+
+  background-color: white;
+}
+
+.make img {
+  max-width: 250px;
+  width: 100%;
+  border-radius: 20px;
+}
+.car-specs-flex {
+  font-size: 25px;
+}
+
+h1 {
+  text-align: center;
+}
+.addcar-btn {
+  text-align: center;
+}
+.addcar-btn Button {
+  font-size: 20px;
+}
