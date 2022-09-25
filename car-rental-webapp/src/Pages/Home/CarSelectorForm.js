@@ -1,9 +1,8 @@
 import React from "react";
-import Box from "@mui/material/Box";
-import InputLabel from "@mui/material/InputLabel";
+
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
-import Select from "@mui/material/Select";
+
 import { TextField, Button } from "@mui/material";
 
 import "./CarSelector.css";
@@ -63,7 +62,9 @@ export default function CarSelector() {
           onChange={handleChange}
         />
         <div className="select-btn">
-          <Button variant="contained">Select Car</Button>
+          <Button variant="contained" size="large">
+            Select Car
+          </Button>
         </div>
       </FormControl>
     </div>

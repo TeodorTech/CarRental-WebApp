@@ -65,7 +65,7 @@ export default function Form({ handleClose }) {
       />
       {/* <TextField label="Password"name="password" variant="filled" type="password" required /> */}
       <div className="ButtonGroup">
-        <Button variant="contained" onClick={handleClose}>
+        <Button variant="contained" onClick={handleClose} color="secondary">
           Cancel
         </Button>
         <Button type="submit" variant="contained" color="primary">

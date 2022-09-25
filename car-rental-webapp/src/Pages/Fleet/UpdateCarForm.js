@@ -9,6 +9,7 @@ export default function UpdateCarForm({ handleClose, getCars, updateCar }) {
     model: updateCar.model,
     year: updateCar.year,
     pricePerDay: updateCar.pricePerDay,
+    imageLink: updateCar.imageLink,
   });
 
   function handleChange(event) {
@@ -25,8 +26,8 @@ export default function UpdateCarForm({ handleClose, getCars, updateCar }) {
     await axios
       .put(`https://localhost:7286/api/car/${updateCar.id}`, update)
       .then(alert("Car updateted succesfuly"));
-    handleClose();
     getCars();
+    handleClose();
   }
   return (
     <form className="form-flex" onSubmit={handleSubmit}>
@@ -61,6 +62,14 @@ export default function UpdateCarForm({ handleClose, getCars, updateCar }) {
         variant="filled"
         onChange={handleChange}
         value={update.pricePerDay}
+        required
+      />
+      <TextField
+        label="Car Image"
+        name="imageLink"
+        variant="filled"
+        onChange={handleChange}
+        value={update.imageLink}
         required
       />
 

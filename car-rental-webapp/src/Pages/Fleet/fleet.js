@@ -46,13 +46,11 @@ export default function Fleet() {
   }, []);
 
   async function getCars() {
-    const response = await axios.get(
-      "https://localhost:7286/api/car/getallcars"
-    );
-    setCarsArray(response.data);
+    const response = await axios
+      .get("https://localhost:7286/api/car/getallcars")
+      .then((response) => setCarsArray(response.data));
+
     console.log(carsArray);
-    // .then((res) => res.json())
-    // .then((data) => setCarsArray(data));
   }
 
   async function deleteCar(carId) {

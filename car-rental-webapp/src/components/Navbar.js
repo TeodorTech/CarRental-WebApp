@@ -1,7 +1,7 @@
 import React from "react";
 import "./navbar-style.css";
 import CarRentalIcon from "@mui/icons-material/CarRental";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
+import LoginIcon from "@mui/icons-material/Login";
 import { Outlet, Link } from "react-router-dom";
 
 export default function Layout() {
@@ -26,12 +26,15 @@ export default function Layout() {
               Fleet
             </Link>
           </li>
-          <li>Contact</li>
+          <li>Contact </li>
+          <li className="li-login">
+            <LoginIcon
+              fontSize="large"
+              style={{ display: "inline", marginTop: "7px" }}
+            />
+            Log In
+          </li>
         </ul>
-        <div className="nav-login">
-          <h1>Login</h1>
-          <AccountCircleIcon fontSize="large" />
-        </div>
       </nav>
 
       <Outlet />
