@@ -7,6 +7,7 @@ export default function AddCarForm({ handleClose, getCars }) {
   const [car, setCar] = React.useState({
     make: "",
     model: "",
+    color: "",
     year: "",
     pricePerDay: "",
     imageLink: "",
@@ -42,6 +43,13 @@ export default function AddCarForm({ handleClose, getCars }) {
       <TextField
         label="Model"
         name="model"
+        variant="filled"
+        onChange={handleChange}
+        required
+      />
+      <TextField
+        label="Color"
+        name="color"
         variant="filled"
         onChange={handleChange}
         required

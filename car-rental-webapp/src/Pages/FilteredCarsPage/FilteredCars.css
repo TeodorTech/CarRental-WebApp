@@ -22,15 +22,22 @@
 }
 .car-specs-flex {
   font-size: 25px;
+  font-style: bold;
+}
+
+.rent-container {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  align-items: center;
 }
 
 h1 {
   text-align: center;
 }
-.addcar-btn {
-  text-align: center;
+h3 {
+  font-size: 1.5rem;
 }
-.addcar-btn Button {
-  font-size: 20px;
-  margin-bottom: 1rem;
+Button {
+  max-height: 50px;
 }

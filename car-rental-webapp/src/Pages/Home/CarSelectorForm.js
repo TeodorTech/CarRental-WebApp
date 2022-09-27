@@ -1,18 +1,27 @@
-import React from "react";
-
+import { useState } from "react";
+import { useNavigate } from "react-router-dom";
 import MenuItem from "@mui/material/MenuItem";
 import FormControl from "@mui/material/FormControl";
-
+import axios from "axios";
 import { TextField, Button } from "@mui/material";
-
 import "./CarSelector.css";
 
 export default function CarSelector() {
-  const [formData, setFormData] = React.useState({
+  const [formData, setFormData] = useState({
     make: "",
     color: "",
     price: "",
   });
+  const [filteredCars, setFilteredCars] = useState({
+    make: "",
+    model: "",
+    color: "",
+    year: "",
+    pricePerDay: "",
+    imageLink: "",
+  });
+  const [redirect, setRedirect] = useState(false);
+  const navigate = useNavigate();
 
   const handleChange = (event) => {
     const { name, value } = event.target;
@@ -23,7 +32,15 @@ export default function CarSelector() {
       };
     });
   };
-  console.log(formData);
+
+  async function SelectCars(formData) {
+    const response = await axios
+      .get(
+        `https://localhost:7286/api/car/carselector/${formData.make}/${formData.price}/${formData.color}`
+      )
+      .then((response) => setFilteredCars(response.data))
+      .then(setRedirect(true));
+  }
 
   return (
     <div sx={{ minWidth: 120 }}>
@@ -62,7 +79,16 @@ export default function CarSelector() {
           onChange={handleChange}
         />
         <div className="select-btn">
-          <Button variant="contained" size="large">
+          <Button
+            variant="contained"
+            size="large"
+            onClick={() => {
+              SelectCars(formData);
+              if (redirect) {
+                navigate("filteredcars", { state: { filteredCars } });
+              }
+            }}
+          >
             Select Car
           </Button>
         </div>

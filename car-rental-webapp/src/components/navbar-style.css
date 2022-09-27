@@ -20,7 +20,7 @@ nav {
 nav ul {
   display: flex;
   list-style: none;
-  gap: 7rem;
+  gap: 5rem;
   margin-right: 1rem;
   font-size: 2rem;
   text-decoration: none;

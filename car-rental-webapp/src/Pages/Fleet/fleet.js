@@ -12,6 +12,13 @@ import FleetModalDialog from "../Fleet/FleetModalDialog";
 import UpdateCarModalDialog from "../Fleet/UpdateCarModalDialog";
 
 export default function Fleet() {
+  const [carsArray, setCarsArray] = React.useState([]);
+  const [carToUpdate, setCarToUpdate] = React.useState(null);
+
+  React.useEffect(() => {
+    getCars();
+  }, []);
+
   // declare a new state variable for modal open
   const [openAdd, setOpenAdd] = React.useState(false);
 
@@ -38,19 +45,10 @@ export default function Fleet() {
     setOpenUpdate(false);
   };
 
-  const [carsArray, setCarsArray] = React.useState([]);
-  const [carToUpdate, setCarToUpdate] = React.useState(null);
-
-  React.useEffect(() => {
-    getCars();
-  }, []);
-
   async function getCars() {
     const response = await axios
       .get("https://localhost:7286/api/car/getallcars")
       .then((response) => setCarsArray(response.data));
-
-    console.log(carsArray);
   }
 
   async function deleteCar(carId) {
@@ -59,7 +57,7 @@ export default function Fleet() {
   }
 
   const make = carsArray.map((car) => (
-    <h3 key={car.id} className="make">
+    <div key={car.id} className="make">
       <div className="car-specs-flex">
         {car.make} {car.model} {car.year}
       </div>
@@ -96,7 +94,7 @@ export default function Fleet() {
           updateCar={carToUpdate}
         />
       </Stack>
-    </h3>
+    </div>
   ));
   return (
     <div className="fleet-container">
