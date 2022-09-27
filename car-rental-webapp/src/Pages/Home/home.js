@@ -1,4 +1,4 @@
-import React from "react";
+import { useState } from "react";
 
 import "./home-style.css";
 import porche from "./../../assets/porche911.png";
@@ -12,7 +12,7 @@ import CarSelector from "./CarSelectorForm";
 
 export default function Home() {
   // declare a new state variable for modal open
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
 
   // function to handle modal open
   const handleOpen = () => {

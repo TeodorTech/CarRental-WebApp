@@ -1,15 +1,17 @@
-import React from "react";
+import {useState} from "react";
 import { TextField, Button } from "@mui/material";
 import "./SignupForm.css";
 import axios from "axios";
 
 export default function Form({ handleClose }) {
-  const [user, setUser] = React.useState({
+  const [user, setUser] = useState({
     firstName: "",
     lastName: "",
     city: "",
     age: "",
     email: "",
+    userName: "",
+    password: "",
   });
   function handleChange(event) {
     const { name, value } = event.target;
@@ -22,7 +24,10 @@ export default function Form({ handleClose }) {
   }
   async function handleSubmit(event) {
     event.preventDefault();
-    await axios.post("https://localhost:7286/api/user", user);
+    await axios.post(
+      "https://localhost:7286/api/Authentication/register",
+      user
+    );
     handleClose();
   }
   return (
@@ -61,9 +66,24 @@ export default function Form({ handleClose }) {
         name="email"
         variant="filled"
         type="email"
+        onChange={handleChange}
         required
       />
-      {/* <TextField label="Password"name="password" variant="filled" type="password" required /> */}
+      <TextField
+        label="UserName"
+        name="userName"
+        variant="filled"
+        onChange={handleChange}
+        required
+      />
+      <TextField
+        label="Password"
+        name="password"
+        variant="filled"
+        onChange={handleChange}
+        required
+      />
+
       <div className="ButtonGroup">
         <Button variant="contained" onClick={handleClose} color="secondary">
           Cancel

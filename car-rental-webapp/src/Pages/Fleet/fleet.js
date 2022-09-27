@@ -1,4 +1,4 @@
-import React from "react";
+import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
 import axios from "axios";
 import "../Fleet/fleet.css";
@@ -12,15 +12,15 @@ import FleetModalDialog from "../Fleet/FleetModalDialog";
 import UpdateCarModalDialog from "../Fleet/UpdateCarModalDialog";
 
 export default function Fleet() {
-  const [carsArray, setCarsArray] = React.useState([]);
-  const [carToUpdate, setCarToUpdate] = React.useState(null);
+  const [carsArray, setCarsArray] = useState([]);
+  const [carToUpdate, setCarToUpdate] = useState(null);
 
-  React.useEffect(() => {
+  useEffect(() => {
     getCars();
   }, []);
 
   // declare a new state variable for modal open
-  const [openAdd, setOpenAdd] = React.useState(false);
+  const [openAdd, setOpenAdd] = useState(false);
 
   // function to handle modal open
   const handleOpenAdd = () => {
@@ -33,7 +33,7 @@ export default function Fleet() {
   };
 
   // declare a new state variable for modal open
-  const [openUpdate, setOpenUpdate] = React.useState(false);
+  const [openUpdate, setOpenUpdate] = useState(false);
 
   // function to handle modal open
   const handleOpenUpdate = () => {

@@ -1,10 +1,10 @@
-import React from "react";
+import { useState } from "react";
 import { TextField, Button } from "@mui/material";
 
 import axios from "axios";
 
 export default function AddCarForm({ handleClose, getCars }) {
-  const [car, setCar] = React.useState({
+  const [car, setCar] = useState({
     make: "",
     model: "",
     color: "",
