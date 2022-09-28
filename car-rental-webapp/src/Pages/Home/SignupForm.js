@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { TextField, Button } from "@mui/material";
+import { TextField, Button, Alert } from "@mui/material";
 import { useForm } from "react-hook-form";
 import "./SignupForm.css";
 import axios from "axios";
@@ -20,16 +20,24 @@ export default function Form({ handleClose }) {
       password: "",
     },
   });
+  const [signup, setSignup] = useState(false);
 
   async function handleFormSubmit(data) {
-    await axios.post(
-      "https://localhost:7286/api/Authentication/register",
-      data
-    );
-    handleClose();
+    const response = await axios
+      .post("https://localhost:7286/api/Authentication/register", data)
+      .then((response) => response.status);
+    if (response) {
+      setSignup(true);
+    }
+
+    setTimeout(() => {
+      setSignup(false);
+      handleClose();
+    }, 2000);
   }
   return (
     <form className="form-flex" onSubmit={handleSubmit(handleFormSubmit)}>
+      {signup && <Alert>Signed Up Succesfuly</Alert>}
       <h1>Hello Driver, sign up below!</h1>
       <TextField
         label="First Name"

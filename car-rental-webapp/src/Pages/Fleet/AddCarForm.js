@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { TextField, Button } from "@mui/material";
+import { TextField, Button, Alert } from "@mui/material";
 import { useForm } from "react-hook-form";
 
 import axios from "axios";
@@ -15,16 +15,25 @@ export default function AddCarForm({ handleClose, getCars }) {
       imageLink: "",
     },
   });
+  const [carAdded, setCarAdded] = useState(false);
 
   async function handleFormSubmit(data) {
-    await axios
+    const response = await axios
       .post("https://localhost:7286/api/car", data)
-      .then(alert("Car added succesfuly"));
-    getCars();
-    handleClose();
+      .then((response) => response.status);
+    if (response) {
+      setCarAdded(true);
+    }
+
+    setTimeout(() => {
+      setCarAdded(false);
+      getCars();
+      handleClose();
+    }, 2000);
   }
   return (
     <form className="form-flex" onSubmit={handleSubmit(handleFormSubmit)}>
+      {carAdded && <Alert>Car Added Succesfuly</Alert>}
       <h1>Register New Car Below!</h1>
       <TextField label="Make" {...register("make")} variant="filled" required />
       <TextField
