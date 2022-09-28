@@ -20,6 +20,7 @@ export default function CarSelector() {
     pricePerDay: "",
     imageLink: "",
   });
+
   const [redirect, setRedirect] = useState(false);
   const navigate = useNavigate();
 
@@ -53,10 +54,9 @@ export default function CarSelector() {
           onChange={handleChange}
           select
         >
-          <MenuItem value={"Porsche"}>Porsche</MenuItem>
+          <MenuItem value={"ferrari"}>Ferrari</MenuItem>
           <MenuItem value={"bmw"}>BMW</MenuItem>
-          <MenuItem value={"Ferrari"}>Ferrari</MenuItem>
-          <MenuItem value={"Mercedes"}>Mercedes</MenuItem>
+          <MenuItem value={"porsche"}>Porsche</MenuItem>
         </TextField>
 
         <TextField
@@ -67,8 +67,8 @@ export default function CarSelector() {
           onChange={handleChange}
           select
         >
-          <MenuItem value={"black"}>Black</MenuItem>
           <MenuItem value={"white"}>White</MenuItem>
+          <MenuItem value={"black"}>Black</MenuItem>
           <MenuItem value={"red"}>Red</MenuItem>
         </TextField>
         <TextField

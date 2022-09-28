@@ -10,10 +10,12 @@ import AddCarIcon from "@mui/icons-material/ControlPoint";
 import Stack from "@mui/material/Stack";
 import FleetModalDialog from "../Fleet/FleetModalDialog";
 import UpdateCarModalDialog from "../Fleet/UpdateCarModalDialog";
+import { Alert } from "@mui/material";
 
 export default function Fleet() {
   const [carsArray, setCarsArray] = useState([]);
   const [carToUpdate, setCarToUpdate] = useState(null);
+  const [showAlert, setShowAlert] = useState(false);
 
   useEffect(() => {
     getCars();
@@ -54,6 +56,11 @@ export default function Fleet() {
   async function deleteCar(carId) {
     await axios.delete(`https://localhost:7286/api/car/${carId}`);
     getCars();
+    setShowAlert(true);
+
+    setTimeout(() => {
+      setShowAlert(false);
+    }, 2000);
   }
 
   const make = carsArray.map((car) => (
@@ -106,6 +113,9 @@ export default function Fleet() {
         >
           Add Car
         </Button>
+        {showAlert && (
+          <Alert marginBottom={"10px"}>Car Deleted Succesfuly</Alert>
+        )}
         <FleetModalDialog
           open={openAdd}
           handleClose={handleCloseAdd}

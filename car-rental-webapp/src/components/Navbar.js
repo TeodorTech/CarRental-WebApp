@@ -1,10 +1,22 @@
-import React from "react";
+import { useState } from "react";
 import "./navbar-style.css";
 import CarRentalIcon from "@mui/icons-material/CarRental";
 import LoginIcon from "@mui/icons-material/Login";
 import { Outlet, Link } from "react-router-dom";
+import LogInModalDialog from "./LogInModalDialog";
 
 export default function Layout() {
+  const [open, setOpen] = useState(false);
+
+  // function to handle modal open
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  // function to handle modal close
+  const handleClose = () => {
+    setOpen(false);
+  };
   return (
     <>
       <nav>
@@ -27,13 +39,14 @@ export default function Layout() {
             </Link>
           </li>
           <li>Contact </li>
-          <li className="li-login">
+          <li className="li-login" onClick={handleOpen}>
             <LoginIcon
               fontSize="large"
               style={{ display: "inline", marginTop: "7px" }}
             />
             Log In
           </li>
+          <LogInModalDialog open={open} handleClose={handleClose} />
         </ul>
       </nav>
 
