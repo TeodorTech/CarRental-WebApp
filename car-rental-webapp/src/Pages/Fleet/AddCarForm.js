@@ -1,78 +1,55 @@
 import { useState } from "react";
 import { TextField, Button } from "@mui/material";
+import { useForm } from "react-hook-form";
 
 import axios from "axios";
 
 export default function AddCarForm({ handleClose, getCars }) {
-  const [car, setCar] = useState({
-    make: "",
-    model: "",
-    color: "",
-    year: "",
-    pricePerDay: "",
-    imageLink: "",
+  const { register, handleSubmit } = useForm({
+    defaultValues: {
+      make: "",
+      model: "",
+      color: "",
+      year: "",
+      pricePerDay: "",
+      imageLink: "",
+    },
   });
 
-  function handleChange(event) {
-    const { name, value } = event.target;
-    setCar((oldCar) => {
-      return {
-        ...oldCar,
-        [name]: value,
-      };
-    });
-  }
-  async function handleSubmit(event) {
-    event.preventDefault();
+  async function handleFormSubmit(data) {
     await axios
-      .post("https://localhost:7286/api/car", car)
+      .post("https://localhost:7286/api/car", data)
       .then(alert("Car added succesfuly"));
     getCars();
     handleClose();
   }
   return (
-    <form className="form-flex" onSubmit={handleSubmit}>
+    <form className="form-flex" onSubmit={handleSubmit(handleFormSubmit)}>
       <h1>Register New Car Below!</h1>
-      <TextField
-        label="Make"
-        name="make"
-        variant="filled"
-        onChange={handleChange}
-        required
-      />
+      <TextField label="Make" {...register("make")} variant="filled" required />
       <TextField
         label="Model"
-        name="model"
+        {...register("model")}
         variant="filled"
-        onChange={handleChange}
         required
       />
       <TextField
         label="Color"
-        name="color"
+        {...register("color")}
         variant="filled"
-        onChange={handleChange}
         required
       />
-      <TextField
-        label="Year"
-        name="year"
-        variant="filled"
-        onChange={handleChange}
-        required
-      />
+      <TextField label="Year" {...register("year")} variant="filled" required />
       <TextField
         label="PricePerDay"
-        name="pricePerDay"
+        {...register("pricePerDay")}
         variant="filled"
-        onChange={handleChange}
         required
       />
       <TextField
         label="Car Image"
-        name="imageLink"
+        {...register("imageLink")}
         variant="filled"
-        onChange={handleChange}
         required
       />
 

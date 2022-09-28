@@ -1,87 +1,98 @@
-import {useState} from "react";
+import { useState } from "react";
 import { TextField, Button } from "@mui/material";
+import { useForm } from "react-hook-form";
 import "./SignupForm.css";
 import axios from "axios";
 
 export default function Form({ handleClose }) {
-  const [user, setUser] = useState({
-    firstName: "",
-    lastName: "",
-    city: "",
-    age: "",
-    email: "",
-    userName: "",
-    password: "",
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    defaultValues: {
+      firstName: "",
+      lastName: "",
+      city: "",
+      age: "",
+      email: "",
+      userName: "",
+      password: "",
+    },
   });
-  function handleChange(event) {
-    const { name, value } = event.target;
-    setUser((oldUser) => {
-      return {
-        ...oldUser,
-        [name]: value,
-      };
-    });
-  }
-  async function handleSubmit(event) {
-    event.preventDefault();
+
+  async function handleFormSubmit(data) {
     await axios.post(
       "https://localhost:7286/api/Authentication/register",
-      user
+      data
     );
     handleClose();
   }
   return (
-    <form className="form-flex" onSubmit={handleSubmit}>
+    <form className="form-flex" onSubmit={handleSubmit(handleFormSubmit)}>
       <h1>Hello Driver, sign up below!</h1>
       <TextField
         label="First Name"
-        name="firstName"
+        error={!!errors["firstName"]}
+        helperText={errors["firstName"]?.message}
+        {...register("firstName", { required: "This field is required" })}
         variant="filled"
-        onChange={handleChange}
-        required
       />
       <TextField
         label="Last Name"
-        name="lastName"
+        error={!!errors["lastName"]}
+        helperText={errors["lastName"]?.message}
+        {...register("lastName", { required: "This field is required" })}
         variant="filled"
-        onChange={handleChange}
-        required
       />
       <TextField
         label="City"
-        name="city"
+        error={!!errors["city"]}
+        helperText={errors["city"]?.message}
+        {...register("city", { required: "This field is required" })}
         variant="filled"
-        onChange={handleChange}
-        required
       />
       <TextField
         label="Age"
-        name="age"
+        error={!!errors["age"]}
+        helperText={errors["age"]?.message}
+        type="number"
+        {...register("age", {
+          min: { value: 18, message: "You need to be older than 18!" },
+        })}
         variant="filled"
-        onChange={handleChange}
-        required
       />
       <TextField
         label="Email"
-        name="email"
+        error={!!errors["email"]}
+        helperText={errors["email"]?.message}
+        {...register("email", {
+          pattern: {
+            value:
+              /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+            message: "Wrong email format",
+          },
+        })}
         variant="filled"
-        type="email"
-        onChange={handleChange}
-        required
       />
       <TextField
         label="UserName"
-        name="userName"
+        {...register("userName", { required: "This field is required" })}
         variant="filled"
-        onChange={handleChange}
-        required
       />
       <TextField
         label="Password"
-        name="password"
+        error={!!errors["password"]}
+        helperText={errors["password"]?.message}
+        {...register("password", {
+          pattern: {
+            value:
+              /^(?=.*?[A-Z])(?=(.*[a-z]){1,})(?=(.*[\d]){1,})(?=(.*[\W]){1,})(?!.*\s).{8,}$/,
+            message:
+              "Password must have minimum one upper case,one number and one special caracter",
+          },
+        })}
         variant="filled"
-        onChange={handleChange}
-        required
       />
 
       <div className="ButtonGroup">
