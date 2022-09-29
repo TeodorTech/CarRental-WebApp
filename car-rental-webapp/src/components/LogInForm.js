@@ -1,6 +1,7 @@
-import { useState } from "react";
+import { useState, useContext } from "react";
 import { TextField, Button, Alert } from "@mui/material";
 import { useForm } from "react-hook-form";
+import AuthContext from "../context/AuthProvider";
 
 import axios from "axios";
 
@@ -15,13 +16,18 @@ export default function Form({ handleClose }) {
       password: "",
     },
   });
+  const { setAuth } = useContext(AuthContext);
 
   const [login, setLogin] = useState(false);
 
   async function handleFormSubmit(data) {
-    const response = await axios
-      .post("https://localhost:7286/api/Authentication/login", data)
-      .then((response) => response.status);
+    const response = await axios.post(
+      "https://localhost:7286/api/Authentication/login",
+      data
+    );
+    const authToken = response.data.token;
+    const authUserName = data.userName;
+    setAuth({ authUserName, authToken });
 
     if (response) {
       setLogin(true);

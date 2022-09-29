@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 
 import "./home-style.css";
 import porche from "./../../assets/porche911.png";
@@ -9,6 +9,8 @@ import { Link } from "react-router-dom";
 import Button from "@mui/material/Button";
 import ModalDialog from "./ModalDialog";
 import CarSelector from "./CarSelectorForm";
+
+import AuthContext from "../../context/AuthProvider";
 
 export default function Home() {
   // declare a new state variable for modal open
@@ -23,6 +25,12 @@ export default function Home() {
   const handleClose = () => {
     setOpen(false);
   };
+
+  const { auth } = useContext(AuthContext);
+  function handleAuth() {
+    const username = auth.authUserName;
+    console.log(username);
+  }
 
   return (
     <div className="home-main">
@@ -56,6 +64,9 @@ export default function Home() {
           </a>
         </div>
       </div>
+      <Button variant="contained" onClick={handleAuth}>
+        Authorization
+      </Button>
     </div>
   );
 }
