@@ -1,8 +1,9 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { TextField, Button, Alert } from "@mui/material";
 import { useForm } from "react-hook-form";
 import "./SignupForm.css";
 import axios from "axios";
+import AuthContext from "../../context/AuthProvider";
 
 export default function Form({ handleClose }) {
   const {
@@ -20,7 +21,14 @@ export default function Form({ handleClose }) {
       password: "",
     },
   });
+  const { auth, setAuth } = useContext(AuthContext);
   const [signup, setSignup] = useState(false);
+
+  const regex = {
+    psw: /^(?=.*?[A-Z])(?=(.*[a-z]){1,})(?=(.*[\d]){1,})(?=(.*[\W]){1,})(?!.*\s).{8,}$/,
+    email:
+      /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+  };
 
   async function handleFormSubmit(data) {
     const response = await axios
@@ -28,12 +36,21 @@ export default function Form({ handleClose }) {
       .then((response) => response.status);
     if (response) {
       setSignup(true);
+      const response = await axios
+        .post("https://localhost:7286/api/Authentication/login", data)
+        .then((response) => response.data);
+      if (response) {
+        const authToken = response.token;
+        const authUserName = data.userName;
+        const login = signup;
+        setAuth({ authUserName, authToken, login });
+      }
     }
 
     setTimeout(() => {
       setSignup(false);
       handleClose();
-    }, 2000);
+    }, 3000);
   }
   return (
     <form className="form-flex" onSubmit={handleSubmit(handleFormSubmit)}>
@@ -75,9 +92,9 @@ export default function Form({ handleClose }) {
         error={!!errors["email"]}
         helperText={errors["email"]?.message}
         {...register("email", {
+          required: "This field is required",
           pattern: {
-            value:
-              /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/,
+            value: regex.email,
             message: "Wrong email format",
           },
         })}
@@ -93,9 +110,9 @@ export default function Form({ handleClose }) {
         error={!!errors["password"]}
         helperText={errors["password"]?.message}
         {...register("password", {
+          required: "This field is required",
           pattern: {
-            value:
-              /^(?=.*?[A-Z])(?=(.*[a-z]){1,})(?=(.*[\d]){1,})(?=(.*[\W]){1,})(?!.*\s).{8,}$/,
+            value: regex.psw,
             message:
               "Password must have minimum one upper case,one number and one special caracter",
           },

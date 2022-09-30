@@ -19,29 +19,35 @@ export default function Form({ handleClose }) {
   const { setAuth } = useContext(AuthContext);
 
   const [login, setLogin] = useState(false);
+  const [showAlert, setShowAlert] = useState(false);
 
   async function handleFormSubmit(data) {
-    const response = await axios.post(
-      "https://localhost:7286/api/Authentication/login",
-      data
-    );
-    const authToken = response.data.token;
-    const authUserName = data.userName;
-    setAuth({ authUserName, authToken });
+    const response = await axios
+      .post("https://localhost:7286/api/Authentication/login", data)
+      .then((response) => response.data)
+      .catch(function (error) {
+        if (error.response) setShowAlert(true);
+      });
 
     if (response) {
+      const authToken = response.token;
+      const authUserName = data.userName;
       setLogin(true);
+      setAuth({ authUserName, authToken, login });
     }
+    console.log(response);
 
     setTimeout(() => {
       setLogin(false);
       handleClose();
-    }, 2000);
+    }, 1000);
   }
 
   return (
     <form className="form-flex" onSubmit={handleSubmit(handleFormSubmit)}>
       {login && <Alert>Logged In Succesfuly</Alert>}
+      {showAlert && <Alert severity="error">Wrong Credentials</Alert>}
+
       <h1>Log In, Driver!</h1>
 
       <TextField

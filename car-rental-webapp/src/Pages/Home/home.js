@@ -40,9 +40,13 @@ export default function Home() {
           <h1> Start Driving Today</h1>
           <h3> Rent the best cars from us at the best prices on the market</h3>
           <div className="select-btn">
-            <Button variant="contained" size="large" onClick={handleOpen}>
-              Sign Up
-            </Button>
+            {auth.authUserName ? (
+              <h1>Welcome {auth.authUserName}</h1>
+            ) : (
+              <Button variant="contained" size="large" onClick={handleOpen}>
+                Signup
+              </Button>
+            )}
             <ModalDialog open={open} handleClose={handleClose} />
           </div>
         </div>
@@ -64,9 +68,6 @@ export default function Home() {
           </a>
         </div>
       </div>
-      <Button variant="contained" onClick={handleAuth}>
-        Authorization
-      </Button>
     </div>
   );
 }

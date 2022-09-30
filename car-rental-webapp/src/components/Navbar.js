@@ -1,12 +1,16 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import "./navbar-style.css";
 import CarRentalIcon from "@mui/icons-material/CarRental";
-import LoginIcon from "@mui/icons-material/Login";
+
 import { Outlet, Link } from "react-router-dom";
 import LogInModalDialog from "./LogInModalDialog";
+import LoginButtton from "./LoginButton";
+import LoggedButton from "./LoggedButton";
+import AuthContext from "../context/AuthProvider";
 
 export default function Layout() {
   const [open, setOpen] = useState(false);
+  const { auth } = useContext(AuthContext);
 
   // function to handle modal open
   const handleOpen = () => {
@@ -39,12 +43,12 @@ export default function Layout() {
             </Link>
           </li>
           <li>Contact </li>
-          <li className="li-login" onClick={handleOpen}>
-            <LoginIcon
-              fontSize="large"
-              style={{ display: "inline", marginTop: "7px" }}
-            />
-            Log In
+          <li>
+            {auth.authUserName ? (
+              <LoggedButton />
+            ) : (
+              <LoginButtton handleOpen={handleOpen} />
+            )}
           </li>
           <LogInModalDialog open={open} handleClose={handleClose} />
         </ul>
