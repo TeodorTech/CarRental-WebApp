@@ -1,12 +1,12 @@
 import { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 import axios from "axios";
 import "../Fleet/fleet.css";
-import porche from "./../../assets/porche911.png";
 import Button from "@mui/material/Button";
 import DeleteIcon from "@mui/icons-material/Delete";
 import SaveIcon from "@mui/icons-material/Save";
 import AddCarIcon from "@mui/icons-material/ControlPoint";
+import CreditCardIcon from "@mui/icons-material/CreditCard";
 import Stack from "@mui/material/Stack";
 import FleetModalDialog from "../Fleet/FleetModalDialog";
 import UpdateCarModalDialog from "../Fleet/UpdateCarModalDialog";
@@ -46,9 +46,10 @@ export default function Fleet() {
   const handleCloseUpdate = () => {
     setOpenUpdate(false);
   };
+  const navigate = useNavigate();
 
   async function getCars() {
-    const response = await axios
+    await axios
       .get("https://localhost:7286/api/car/getallcars")
       .then((response) => setCarsArray(response.data));
   }
@@ -69,12 +70,12 @@ export default function Fleet() {
         {car.make} {car.model} {car.year}
       </div>
       <img src={car.imageLink} />
-      <Stack direction="row" spacing={2} marginBottom="5px">
+      <Stack direction="row" spacing={2}>
         <Button
           variant="contained"
           size="medium"
           startIcon={<DeleteIcon />}
-          color="secondary"
+          color="error"
           onClick={() => {
             if (window.confirm("Are you sure you want to delete?")) {
               deleteCar(car.id);
@@ -86,6 +87,7 @@ export default function Fleet() {
         <Button
           variant="contained"
           size="medium"
+          color="warning"
           endIcon={<SaveIcon />}
           onClick={() => {
             setCarToUpdate(car);
@@ -100,6 +102,15 @@ export default function Fleet() {
           getCars={getCars}
           updateCar={carToUpdate}
         />
+        <Button
+          variant="contained"
+          endIcon={<CreditCardIcon />}
+          onClick={() => {
+            navigate("rentcar", { state: { car } });
+          }}
+        >
+          Rent
+        </Button>
       </Stack>
     </div>
   ));

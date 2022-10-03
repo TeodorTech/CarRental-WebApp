@@ -27,10 +27,11 @@ export default function Home() {
   };
 
   const { auth } = useContext(AuthContext);
-  function handleAuth() {
-    const username = auth.authUserName;
-    console.log(username);
-  }
+  // function handleAuth() {
+  //   const username = auth.authUserName;
+  //   console.log(username);
+  // }
+console.log(auth)
 
   return (
     <div className="home-main">

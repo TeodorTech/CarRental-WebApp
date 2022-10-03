@@ -20,16 +20,14 @@ export default function AddCarForm({ handleClose, getCars }) {
   async function handleFormSubmit(data) {
     const response = await axios
       .post("https://localhost:7286/api/car", data)
-      .then((response) => response.status);
-    if (response) {
-      setCarAdded(true);
-    }
-
-    setTimeout(() => {
-      setCarAdded(false);
-      getCars();
-      handleClose();
-    }, 2000);
+      .then(() => {
+        setCarAdded(true);
+        setTimeout(() => {
+          setCarAdded(false);
+          getCars();
+          handleClose();
+        }, 2000);
+      });
   }
   return (
     <form className="form-flex" onSubmit={handleSubmit(handleFormSubmit)}>
