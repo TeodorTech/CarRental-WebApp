@@ -1,16 +1,19 @@
-import React from "react";
-import { TextField, Button } from "@mui/material";
+import React, { useState } from "react";
+import { TextField, Button, Alert } from "@mui/material";
 
 import axios from "axios";
 
 export default function UpdateCarForm({ handleClose, getCars, updateCar }) {
+  console.log(updateCar);
   const [update, setCar] = React.useState({
     make: updateCar.make,
     model: updateCar.model,
+    color: updateCar.color,
     year: updateCar.year,
     pricePerDay: updateCar.pricePerDay,
     imageLink: updateCar.imageLink,
   });
+  const [carUpdated, setCarUpdated] = useState(false);
 
   function handleChange(event) {
     const { name, value } = event.target;
@@ -25,12 +28,18 @@ export default function UpdateCarForm({ handleClose, getCars, updateCar }) {
     event.preventDefault();
     await axios
       .put(`https://localhost:7286/api/car/${updateCar.id}`, update)
-      .then(alert("Car updateted succesfuly"));
-    getCars();
-    handleClose();
+      .then(() => {
+        setCarUpdated(true);
+        setTimeout(() => {
+          setCarUpdated(false);
+          getCars();
+          handleClose();
+        }, 2000);
+      });
   }
   return (
     <form className="form-flex" onSubmit={handleSubmit}>
+      {carUpdated && <Alert>Car updateted succesfuly</Alert>}
       <h1>Modify Car!</h1>
       <TextField
         label="Make"
@@ -46,6 +55,14 @@ export default function UpdateCarForm({ handleClose, getCars, updateCar }) {
         variant="filled"
         onChange={handleChange}
         value={update.model}
+        required
+      />
+      <TextField
+        label="Color"
+        name="color"
+        variant="filled"
+        onChange={handleChange}
+        value={update.color}
         required
       />
       <TextField

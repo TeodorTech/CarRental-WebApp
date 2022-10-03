@@ -41,7 +41,7 @@ export default function Home() {
           <h3> Rent the best cars from us at the best prices on the market</h3>
           <div className="select-btn">
             {auth.authUserName ? (
-              <h1>Welcome {auth.authUserName}</h1>
+              <h1>Welcome {auth.authUserName}!</h1>
             ) : (
               <Button variant="contained" size="large" onClick={handleOpen}>
                 Signup
