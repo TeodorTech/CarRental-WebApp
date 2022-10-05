@@ -31,11 +31,11 @@ export default function Form({ handleClose }) {
 
     if (response) {
       const authToken = response.token;
+      const userId = response.token_id;
       const authUserName = data.userName;
       setLogin(true);
-      setAuth({ authUserName, authToken, login });
+      setAuth({ authUserName, authToken, login, userId });
     }
-    console.log(response);
 
     setTimeout(() => {
       setLogin(false);

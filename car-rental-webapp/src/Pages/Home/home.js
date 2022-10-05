@@ -31,7 +31,7 @@ export default function Home() {
   //   const username = auth.authUserName;
   //   console.log(username);
   // }
-console.log(auth)
+  console.log(auth.userId);
 
   return (
     <div className="home-main">
