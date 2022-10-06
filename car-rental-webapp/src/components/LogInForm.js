@@ -71,7 +71,7 @@ export default function Form({ handleClose }) {
           Cancel
         </Button>
         <Button type="submit" variant="contained" color="primary">
-          Signup
+          Enter
         </Button>
       </div>
     </form>

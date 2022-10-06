@@ -45,7 +45,7 @@ export default function Home() {
               <h1>Welcome {auth.authUserName}!</h1>
             ) : (
               <Button variant="contained" size="large" onClick={handleOpen}>
-                Signup
+                Create Account
               </Button>
             )}
             <ModalDialog open={open} handleClose={handleClose} />

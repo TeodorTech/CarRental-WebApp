@@ -7,8 +7,9 @@ import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
 import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
+import MenuItem from "@mui/material/MenuItem";
 import "./RentCar-style.css";
-import { Button } from "@mui/material";
+import { Alert, Button } from "@mui/material";
 import AuthContext from "../../context/AuthProvider";
 import { useContext } from "react";
 import axios from "axios";
@@ -17,21 +18,24 @@ export default function RentCar() {
   const location = useLocation();
   const carData = location.state.car;
   const [value, setValue] = React.useState(false);
-  const [startDate, setStartDate] = React.useState(dayjs(Date.now()));
-  const [endDate, setEndDate] = React.useState(dayjs(Date.now()));
+  const [start, setStart] = React.useState(dayjs(Date.now()));
+  const [end, setEnd] = React.useState(dayjs(Date.now()));
+  const [payment, setPayment] = React.useState("card");
+  const [isRent, setIsRent] = React.useState(false);
   const { auth } = useContext(AuthContext);
   const [bookDetails, setBookDetails] = React.useState({
-    id: auth.userId,
     carId: carData.id,
+    userId: auth.userId,
     startDate: "",
     endDate: "",
   });
-  console.log(bookDetails);
-  const totalDays = Math.floor((endDate - startDate) / (24 * 3600 * 1000));
-
-  // async function handleRentClick(bookDetails) {
-  //   await axios.post();
-  // }
+  const totalDays = Math.floor((end - start) / (24 * 3600 * 1000));
+  console.log(payment);
+  async function handleClickRent() {
+    const response = await axios
+      .post("https://localhost:7286/api/booking", bookDetails)
+      .then(setIsRent(true));
+  }
 
   return (
     <>
@@ -43,18 +47,25 @@ export default function RentCar() {
           <img src={carData.imageLink} />
           {value && (
             <div className="payment-total">
+              {isRent && <Alert> Car Rented Succesfully</Alert>}
               <div className="payment-total-flex">
                 <h2>Payment Details :</h2>
                 <p>
-                  Car:{carData.make}
-                  {carData.model}
+                  Car:
+                  <b>
+                    {carData.make} {carData.model}
+                  </b>
                 </p>
                 <p>
-                  Number of days:
-                  {totalDays}
+                  Number of days: <b>{totalDays}</b>
+                </p>
+                <p>
+                  Payment :<b> {payment.toUpperCase()}</b>
                 </p>
                 <h2>Total:{totalDays * carData.pricePerDay} $</h2>
-                <Button variant="contained">RENT NOW</Button>
+                <Button variant="contained" onClick={handleClickRent}>
+                  RENT NOW
+                </Button>
               </div>
             </div>
           )}
@@ -63,18 +74,18 @@ export default function RentCar() {
           <h1>Booking Details:</h1>
           <LocalizationProvider dateAdapter={AdapterDayjs}>
             <MobileDatePicker
-              dateFormat="dd/MM/yyyy"
               name="startDate"
               label="Start Date"
-              value={startDate}
+              value={start}
               onChange={(newValue) => {
-                setBookDetails((oldCar) => {
+                setBookDetails((oldBook) => {
                   return {
-                    ...oldCar,
-                    startDate: new Date(newValue).toLocaleDateString(),
+                    ...oldBook,
+                    // startDate: newValue,
+                    startDate: dayjs(newValue).format("YYYY-MM-DD"),
                   };
                 });
-                setStartDate(newValue);
+                setStart(newValue);
               }}
               renderInput={(params) => <TextField {...params} />}
             />
@@ -82,23 +93,40 @@ export default function RentCar() {
             <MobileDatePicker
               name="endDate"
               label="End Date"
-              value={endDate}
+              value={end}
               onChange={(newValue) => {
-                setBookDetails((oldCar) => {
+                setBookDetails((oldBook) => {
                   return {
-                    ...oldCar,
-                    endDate: new Date(newValue).toLocaleDateString(),
+                    ...oldBook,
+                    // endDate: newValue,
+                    endDate: dayjs(newValue).format("YYYY-MM-DD"),
                   };
                 });
-                setEndDate(newValue);
+                setEnd(newValue);
               }}
               renderInput={(params) => <TextField {...params} />}
             />
           </LocalizationProvider>
+          <TextField
+            id="select"
+            label="Payment"
+            value={payment}
+            name="payment"
+            onChange={(event) => {
+              setPayment(event.target.value);
+            }}
+            select
+          >
+            <MenuItem value={"card"}>Card</MenuItem>
+            <MenuItem value={"cash"}>Cash</MenuItem>
+            <MenuItem value={"crypto"}>Crypto</MenuItem>
+          </TextField>
+
           <Button
             variant="contained"
             color="warning"
             onClick={() => setValue(true)}
+            // onClick={handleClickRent}
           >
             CALCULATE
           </Button>
