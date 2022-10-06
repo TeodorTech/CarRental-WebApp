@@ -44,6 +44,11 @@ export default function Layout() {
           </li>
           <li>Contact </li>
           <li>
+            <Link style={{ textDecoration: "none", color: "black" }} to="/dash">
+              DASHBOARD
+            </Link>
+          </li>
+          <li>
             {auth.authUserName ? (
               <LoggedButton />
             ) : (

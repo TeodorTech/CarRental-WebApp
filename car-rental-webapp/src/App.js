@@ -6,6 +6,7 @@ import Fleet from "./Pages/Fleet/fleet";
 import RentCar from "./Pages/RentCar/RentCar";
 import FilteredCars from "./Pages/FilteredCarsPage/FilteredCars";
 import { BrowserRouter, Routes, Route } from "react-router-dom";
+import Dashboard from "./Pages/Dashboard/Dashboard";
 
 export default function App() {
   return (
@@ -16,6 +17,7 @@ export default function App() {
           <Route path="fleet" element={<Fleet />} />
           <Route path="filteredcars" element={<FilteredCars />} />
           <Route path="fleet/rentcar" element={<RentCar />} />
+          <Route path = "dash" element={<Dashboard />} />
 
           {/* <Route path="*" element={<NoPage />} /> */}
         </Route>
