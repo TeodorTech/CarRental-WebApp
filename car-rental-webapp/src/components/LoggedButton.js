@@ -1,4 +1,5 @@
 import React, { useContext } from "react";
+import { useLocation, useNavigate } from "react-router-dom";
 import AccountCircleIcon from "@mui/icons-material/AccountCircle";
 import { Button, Menu, MenuItem } from "@mui/material";
 import AuthContext from "../context/AuthProvider";
@@ -13,6 +14,7 @@ export default function LoggedButton() {
   const handleClose = () => {
     setAnchorEl(null);
   };
+  const navigate = useNavigate();
 
   return (
     <div>
@@ -36,7 +38,14 @@ export default function LoggedButton() {
           "aria-labelledby": "basic-button",
         }}
       >
-        <MenuItem onClick={handleClose}>My account</MenuItem>
+        <MenuItem
+          onClick={() => {
+            handleClose();
+            navigate("myaccount");
+          }}
+        >
+          My account
+        </MenuItem>
         <MenuItem onClick={handleClose}>Settings</MenuItem>
         <MenuItem
           onClick={() =>

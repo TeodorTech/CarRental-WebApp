@@ -19,6 +19,7 @@
 
 img {
   max-width: 600px;
+  width: 100%;
 }
 .date-picker {
   box-shadow: 0px 2px 9px 10px rgba(0, 0, 0, 0.75);
@@ -45,4 +46,18 @@ img {
   box-shadow: 0px 2px 9px 10px rgba(0, 0, 0, 0.75);
   padding: 20px;
   margin-bottom: 20px;
+}
+.form-flex {
+  border: 5px solid red;
+  grid-column: span 2;
+  background-color: white;
+}
+.textfield {
+  width: 100%;
+  max-width: 1000px;
+}
+.payment-total {
+  display: flex;
+  gap: 150px;
+  align-items: center;
 }

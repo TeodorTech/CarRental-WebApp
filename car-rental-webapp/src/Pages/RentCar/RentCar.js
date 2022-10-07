@@ -1,5 +1,5 @@
 import React from "react";
-import { useLocation } from "react-router-dom";
+import { useLocation, useNavigate } from "react-router-dom";
 import dayjs from "dayjs";
 import Stack from "@mui/material/Stack";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
@@ -12,6 +12,7 @@ import "./RentCar-style.css";
 import { Alert, Button } from "@mui/material";
 import AuthContext from "../../context/AuthProvider";
 import { useContext } from "react";
+import RentCarForm from "./RentCarForm";
 import axios from "axios";
 
 export default function RentCar() {
@@ -23,6 +24,8 @@ export default function RentCar() {
   const [payment, setPayment] = React.useState("card");
   const [isRent, setIsRent] = React.useState(false);
   const { auth } = useContext(AuthContext);
+  const navigate = useNavigate();
+
   const [bookDetails, setBookDetails] = React.useState({
     carId: carData.id,
     userId: auth.userId,
@@ -30,11 +33,16 @@ export default function RentCar() {
     endDate: "",
   });
   const totalDays = Math.floor((end - start) / (24 * 3600 * 1000));
-  console.log(payment);
-  async function handleClickRent() {
-    const response = await axios
-      .post("https://localhost:7286/api/booking", bookDetails)
-      .then(setIsRent(true));
+
+  function handleClickRent() {
+    // const response = await axios
+    //   .post("https://localhost:7286/api/booking", bookDetails)
+    //   .then(setIsRent(true));
+    setIsRent(true);
+    setTimeout(() => {
+      setIsRent(false);
+      navigate("myaccount");
+    }, 3000);
   }
 
   return (
@@ -45,30 +53,6 @@ export default function RentCar() {
             {carData.make} {carData.model} {carData.year}
           </h1>
           <img src={carData.imageLink} />
-          {value && (
-            <div className="payment-total">
-              {isRent && <Alert> Car Rented Succesfully</Alert>}
-              <div className="payment-total-flex">
-                <h2>Payment Details :</h2>
-                <p>
-                  Car:
-                  <b>
-                    {carData.make} {carData.model}
-                  </b>
-                </p>
-                <p>
-                  Number of days: <b>{totalDays}</b>
-                </p>
-                <p>
-                  Payment :<b> {payment.toUpperCase()}</b>
-                </p>
-                <h2>Total:{totalDays * carData.pricePerDay} $</h2>
-                <Button variant="contained" onClick={handleClickRent}>
-                  RENT NOW
-                </Button>
-              </div>
-            </div>
-          )}
         </div>
         <div className="date-picker">
           <h1>Booking Details:</h1>
@@ -131,6 +115,18 @@ export default function RentCar() {
             CALCULATE
           </Button>
         </div>
+        {value && (
+          <RentCarForm
+            userName={auth.authUserName}
+            car={carData.make}
+            period={bookDetails.startDate}
+            days={totalDays}
+            paymentType={payment}
+            total={totalDays * carData.pricePerDay}
+            handleClickRent={handleClickRent}
+            isRent={isRent}
+          />
+        )}
       </div>
     </>
   );
