@@ -1,32 +1,30 @@
-import React from "react";
+import { useState, useContext } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
 import dayjs from "dayjs";
-import Stack from "@mui/material/Stack";
 import { AdapterDayjs } from "@mui/x-date-pickers/AdapterDayjs";
 import { LocalizationProvider } from "@mui/x-date-pickers/LocalizationProvider";
 import { MobileDatePicker } from "@mui/x-date-pickers/MobileDatePicker";
-import Box from "@mui/material/Box";
 import TextField from "@mui/material/TextField";
 import MenuItem from "@mui/material/MenuItem";
 import "./RentCar-style.css";
-import { Alert, Button } from "@mui/material";
+import { Button } from "@mui/material";
 import AuthContext from "../../context/AuthProvider";
-import { useContext } from "react";
 import RentCarForm from "./RentCarForm";
 import axios from "axios";
 
 export default function RentCar() {
   const location = useLocation();
   const carData = location.state.car;
-  const [value, setValue] = React.useState(false);
-  const [start, setStart] = React.useState(dayjs(Date.now()));
-  const [end, setEnd] = React.useState(dayjs(Date.now()));
-  const [payment, setPayment] = React.useState("card");
-  const [isRent, setIsRent] = React.useState(false);
+  const [value, setValue] = useState(false);
+  const [start, setStart] = useState(dayjs(Date.now()));
+  const [end, setEnd] = useState(dayjs(Date.now()));
+  const [payment, setPayment] = useState("card");
+  const [isRent, setIsRent] = useState(false);
+  const [checkout, setCheckout] = useState(false);
   const { auth } = useContext(AuthContext);
   const navigate = useNavigate();
 
-  const [bookDetails, setBookDetails] = React.useState({
+  const [bookDetails, setBookDetails] = useState({
     carId: carData.id,
     userId: auth.userId,
     startDate: "",
@@ -41,8 +39,12 @@ export default function RentCar() {
     setIsRent(true);
     setTimeout(() => {
       setIsRent(false);
+      setCheckout(true);
+    }, 2000);
+    setTimeout(() => {
+      setCheckout(false);
       navigate("myaccount");
-    }, 3000);
+    }, 4000);
   }
 
   return (
@@ -125,6 +127,7 @@ export default function RentCar() {
             total={totalDays * carData.pricePerDay}
             handleClickRent={handleClickRent}
             isRent={isRent}
+            checkout={checkout}
           />
         )}
       </div>

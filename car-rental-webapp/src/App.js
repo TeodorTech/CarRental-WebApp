@@ -20,6 +20,7 @@ export default function App() {
           <Route path="fleet/rentcar" element={<RentCar />} />
           <Route path="dash" element={<Dashboard />} />
           <Route path="fleet/rentcar/myaccount" element={<MyAccount />} />
+          <Route path="myaccount" element={<MyAccount />} />
 
           {/* <Route path="*" element={<NoPage />} /> */}
         </Route>

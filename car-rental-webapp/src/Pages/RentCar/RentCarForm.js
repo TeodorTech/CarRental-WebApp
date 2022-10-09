@@ -1,5 +1,6 @@
 import { TextField, Button } from "@mui/material";
 import CircularProgress from "@mui/material/CircularProgress";
+import CheckCircleIcon from "@mui/icons-material/CheckCircle";
 
 export default function RentCarForm(props) {
   return (
@@ -44,6 +45,8 @@ export default function RentCarForm(props) {
         <h2 style={{ fontSize: "25px" }}>Total: {props.total} $</h2>
         {props.isRent ? (
           <CircularProgress />
+        ) : props.checkout ? (
+          <CheckCircleIcon fontSize="large" color="success" />
         ) : (
           <Button variant="contained" onClick={props.handleClickRent}>
             Rent Now
