@@ -70,7 +70,7 @@ export default function Fleet() {
         {car.make} {car.model} {car.year}
       </div>
       <img src={car.imageLink} />
-      <Stack direction="row" spacing={2}>
+      <Stack direction="row" spacing={2} style={{ marginBottom: "20px" }}>
         <Button
           variant="contained"
           size="medium"

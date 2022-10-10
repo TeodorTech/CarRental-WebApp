@@ -23,20 +23,22 @@ export default function RentCar() {
   const [checkout, setCheckout] = useState(false);
   const { auth } = useContext(AuthContext);
   const navigate = useNavigate();
+  const totalDays = Math.floor((end - start) / (24 * 3600 * 1000));
 
   const [bookDetails, setBookDetails] = useState({
     carId: carData.id,
+    carMake: `${carData.make + " " + carData.model}`,
     userId: auth.userId,
     startDate: "",
     endDate: "",
+    totalCost: "",
   });
-  const totalDays = Math.floor((end - start) / (24 * 3600 * 1000));
 
-  function handleClickRent() {
-    // const response = await axios
-    //   .post("https://localhost:7286/api/booking", bookDetails)
-    //   .then(setIsRent(true));
-    setIsRent(true);
+  async function handleClickRent() {
+    const response = await axios
+      .post("https://localhost:7286/api/booking", bookDetails)
+      .then(setIsRent(true));
+    // setIsRent(true);
     setTimeout(() => {
       setIsRent(false);
       setCheckout(true);
@@ -111,7 +113,16 @@ export default function RentCar() {
           <Button
             variant="contained"
             color="warning"
-            onClick={() => setValue(true)}
+            onClick={() => {
+              setValue(true);
+              setBookDetails((oldBook) => {
+                return {
+                  ...oldBook,
+                  // startDate: newValue,
+                  totalCost: `${totalDays * carData.pricePerDay}`,
+                };
+              });
+            }}
             // onClick={handleClickRent}
           >
             CALCULATE
