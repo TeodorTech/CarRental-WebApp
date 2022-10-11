@@ -48,9 +48,10 @@ export default function LoggedButton() {
         </MenuItem>
         <MenuItem onClick={handleClose}>Settings</MenuItem>
         <MenuItem
-          onClick={() =>
-            setAuth({ authUserName: "", authToken: "", login: false })
-          }
+          onClick={() => {
+            setAuth({ authUserName: "", authToken: "", login: false });
+            localStorage.clear();
+          }}
         >
           LogOut
         </MenuItem>

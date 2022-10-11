@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import "./navbar-style.css";
 import CarRentalIcon from "@mui/icons-material/CarRental";
 
@@ -10,7 +10,7 @@ import AuthContext from "../context/AuthProvider";
 
 export default function Layout() {
   const [open, setOpen] = useState(false);
-  const { auth } = useContext(AuthContext);
+  const { auth, setAuth } = useContext(AuthContext);
 
   // function to handle modal open
   const handleOpen = () => {

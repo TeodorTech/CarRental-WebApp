@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useContext, useState, useEffect } from "react";
 
 import "./home-style.css";
 import porche from "./../../assets/porche911.png";
@@ -26,12 +26,11 @@ export default function Home() {
     setOpen(false);
   };
 
-  const { auth } = useContext(AuthContext);
+  const { auth, setAuth } = useContext(AuthContext);
   // function handleAuth() {
   //   const username = auth.authUserName;
   //   console.log(username);
   // }
-  console.log(auth.userId);
 
   return (
     <div className="home-main">
