@@ -48,7 +48,6 @@ img {
   margin-bottom: 20px;
 }
 .form-flex {
-  border: 5px solid red;
   grid-column: span 2;
   background-color: white;
 }

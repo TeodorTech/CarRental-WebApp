@@ -75,7 +75,7 @@ export default function CarSelector() {
           name="price"
           value={formData.price}
           label="PricePerDay"
-          variant="filled"
+          variant="outlined"
           onChange={handleChange}
         />
         <div className="select-btn">
