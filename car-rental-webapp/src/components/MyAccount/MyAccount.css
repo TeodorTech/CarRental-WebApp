@@ -1,8 +1,8 @@
 .book-grid {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
-  background-color: #629460;
-  color: #fafffd;
+  background-color: #ffffff;
+  color: #020080;
   font-size: 15px;
   border-radius: 30px;
   justify-items: center;

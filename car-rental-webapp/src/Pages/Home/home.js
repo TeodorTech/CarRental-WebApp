@@ -36,9 +36,11 @@ export default function Home() {
     <div className="home-main">
       <div className="home-title">
         <div className="home-title-flex">
-          <h3>Luxury Car Rental</h3>
-          <h1> Start Driving Today</h1>
-          <h3> Rent the best cars from us at the best prices on the market</h3>
+          <p>LUXURY CAR RENTAL</p>
+          <p>
+            <b>Start Driving Today!</b>
+          </p>
+          <p> Rent the best cars from us at the best prices on the market.</p>
           <div className="select-btn">
             {auth.authUserName ? (
               <h1>Welcome {auth.authUserName}!</h1>

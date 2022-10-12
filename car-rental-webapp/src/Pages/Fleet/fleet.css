@@ -1,9 +1,9 @@
 .fleet-container {
   margin: 1rem 3rem;
 }
-.makes-flex {
+.car-fleet {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 1rem;
 }
 .make {
@@ -20,12 +20,6 @@
   grid-template-columns: repeat(2, 1fr);
 }
 
-.make img {
-  max-height: 150px;
-  height: 100%;
-
-  border-radius: 20px;
-}
 .car-specs-flex {
   display: flex;
   flex-direction: column;
@@ -41,4 +35,16 @@ h1 {
 .addcar-btn Button {
   font-size: 20px;
   margin-bottom: 1rem;
+}
+@media (max-width: 400px) {
+  .car-fleet {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  .make-grid {
+    display: grid;
+    gap: 100px;
+    grid-template-columns: repeat(1, 1fr);
+  }
 }

@@ -15,15 +15,20 @@ body {
 .home-title-flex {
   display: flex;
   flex-direction: column;
-
-  justify-content: space-around;
+  align-items: center;
   font-size: 1.2rem;
   box-shadow: 0px 2px 9px 10px rgba(0, 0, 0, 0.75);
   border-radius: 10px;
 }
-.home-title-flex h1,
-h3 {
-  align-self: center;
+.home-title-flex p {
+  font-size: 1.5rem;
+}
+
+.home-title-flex p:nth-child(2) {
+  background-color: rgba(255, 255, 255, 0.781);
+  color: rgb(52, 65, 253);
+  padding: 5px;
+  border-radius: 5px;
 }
 .form-carselector {
   display: flex;
@@ -68,4 +73,30 @@ h3 {
   border-radius: 1rem;
   max-width: 20rem;
   width: 100%;
+}
+@media (max-width: 400px) {
+  .home-main {
+    display: flex;
+    flex-direction: column;
+
+    margin: 1rem;
+    height: 100%;
+    gap: 2rem;
+  }
+  .featuredcars-flex {
+    display: none;
+  }
+  .featuredcars-title {
+    display: none;
+  }
+  .home-title-flex p:nth-child(3) {
+    text-align: center;
+  }
+  .home-title-flex {
+    color: white;
+  }
+  body {
+    background-image: url("./M.jpg");
+    background-size: cover;
+  }
 }

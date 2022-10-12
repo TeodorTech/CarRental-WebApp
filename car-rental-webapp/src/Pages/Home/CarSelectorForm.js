@@ -47,6 +47,7 @@ export default function CarSelector() {
     <div sx={{ minWidth: 120 }}>
       <FormControl className="carselector-box" fullWidth>
         <TextField
+          className="textfield"
           id="select"
           label="Make"
           value={formData.make}
@@ -60,6 +61,7 @@ export default function CarSelector() {
         </TextField>
 
         <TextField
+          className="textfield"
           id="select"
           label="Color"
           value={formData.color}
@@ -72,6 +74,7 @@ export default function CarSelector() {
           <MenuItem value={"red"}>Red</MenuItem>
         </TextField>
         <TextField
+          className="textfield"
           name="price"
           value={formData.price}
           label="PricePerDay"

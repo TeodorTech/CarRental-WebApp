@@ -79,7 +79,11 @@ export default function Fleet() {
           className="car-specs-flex"
           style={{ marginBottom: "20px", marginTop: "20px" }}
         >
-          <Chip icon={<CarCrashIcon />} label={car.make + "" + car.model} />
+          <Chip
+            icon={<CarCrashIcon />}
+            label={car.make + " " + car.model}
+            style={{ fontFamily: "15px", fontWeight: "bold" }}
+          />
           <Chip icon={<CalendarMonthIcon />} label={car.year} />
           <Chip icon={<PaletteIcon />} label={car.color} />
           <Chip icon={<AttachMoneyIcon />} label={car.pricePerDay + " /Day"} />
@@ -154,7 +158,7 @@ export default function Fleet() {
           getCars={getCars}
         />
       </div>
-      <div className="makes-flex">{make}</div>
+      <div className="car-fleet">{make}</div>
     </div>
   );
 }
