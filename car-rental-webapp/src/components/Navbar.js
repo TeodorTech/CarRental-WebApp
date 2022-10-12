@@ -1,6 +1,7 @@
 import { useContext, useEffect, useState } from "react";
 import "./navbar-style.css";
 import CarRentalIcon from "@mui/icons-material/CarRental";
+import Hamburger from "./Hamburger";
 
 import { Outlet, Link } from "react-router-dom";
 import LogInModalDialog from "./LogInModalDialog";
@@ -25,24 +26,11 @@ export default function Layout() {
     <>
       <nav>
         <div className="nav-title">
+          <Hamburger />
           <CarRentalIcon fontSize="large" />
           <h1>Luxury Car Rental</h1>
         </div>
         <ul>
-          <li>
-            <Link style={{ textDecoration: "none", color: "black" }} to="/">
-              Home
-            </Link>
-          </li>
-          <li>
-            <Link
-              style={{ textDecoration: "none", color: "black" }}
-              to="/fleet"
-            >
-              Fleet
-            </Link>
-          </li>
-          <li>Contact </li>
           {auth.authUserName === "admin" && (
             <li>
               <Link

@@ -1,12 +1,11 @@
-import React, { useContext } from "react";
+import * as React from "react";
+import Button from "@mui/material/Button";
+import Menu from "@mui/material/Menu";
+import MenuItem from "@mui/material/MenuItem";
+import MenuIcon from "@mui/icons-material/Menu";
 import { useLocation, useNavigate } from "react-router-dom";
-import AccountCircleIcon from "@mui/icons-material/AccountCircle";
-import { Button, Menu, MenuItem } from "@mui/material";
 
-import AuthContext from "../context/AuthProvider";
-
-export default function LoggedButton() {
-  const { auth, setAuth } = useContext(AuthContext);
+export default function BasicMenu() {
   const [anchorEl, setAnchorEl] = React.useState(null);
   const open = Boolean(anchorEl);
   const handleClick = (event) => {
@@ -20,15 +19,13 @@ export default function LoggedButton() {
   return (
     <div>
       <Button
+        id="basic-button"
         aria-controls={open ? "basic-menu" : undefined}
         aria-haspopup="true"
         aria-expanded={open ? "true" : undefined}
-        size="large"
-        variant="outlined"
         onClick={handleClick}
-        startIcon={<AccountCircleIcon />}
       >
-        Hello,{auth.authUserName}
+        <MenuIcon />
       </Button>
       <Menu
         id="basic-menu"
@@ -42,20 +39,20 @@ export default function LoggedButton() {
         <MenuItem
           onClick={() => {
             handleClose();
-            navigate("myaccount");
+            navigate("/");
           }}
         >
-          My account
+          HOME
         </MenuItem>
-        <MenuItem onClick={handleClose}>Settings</MenuItem>
         <MenuItem
           onClick={() => {
-            setAuth({ authUserName: "", authToken: "", login: false });
-            localStorage.clear();
+            handleClose();
+            navigate("fleet");
           }}
         >
-          LogOut
+          FLEET
         </MenuItem>
+        <MenuItem onClick={handleClose}>CONTACT</MenuItem>
       </Menu>
     </div>
   );
