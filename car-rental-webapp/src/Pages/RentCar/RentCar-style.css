@@ -60,3 +60,24 @@ img {
   gap: 150px;
   align-items: center;
 }
+@media (max-width: 400px) {
+  .rentcar-grid {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 0;
+    margin: 15px;
+  }
+  .date-picker {
+    box-shadow: none;
+    gap: 10px;
+  }
+  .form-flex {
+    grid-column: span 1;
+    background-color: white;
+  }
+  .payment-total {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+  }
+}

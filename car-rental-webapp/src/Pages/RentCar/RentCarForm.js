@@ -11,6 +11,9 @@ export default function RentCarForm(props) {
         label="UserName"
         name="userName"
         variant="filled"
+        InputProps={{
+          readOnly: true,
+        }}
         value={props.userName}
       />
       <TextField
@@ -18,6 +21,9 @@ export default function RentCarForm(props) {
         label="CarMake"
         name="carMake"
         variant="filled"
+        InputProps={{
+          readOnly: true,
+        }}
         value={props.car}
       />
       <TextField
@@ -25,6 +31,9 @@ export default function RentCarForm(props) {
         label="Period"
         name="period"
         variant="filled"
+        InputProps={{
+          readOnly: true,
+        }}
         value={props.period}
       />
       <TextField
@@ -32,6 +41,9 @@ export default function RentCarForm(props) {
         label="NumberOfDays"
         name="numberOfDays"
         variant="filled"
+        InputProps={{
+          readOnly: true,
+        }}
         value={props.days}
       />
       <TextField
@@ -39,6 +51,9 @@ export default function RentCarForm(props) {
         label="Payment Type"
         name="paymentType"
         variant="filled"
+        InputProps={{
+          readOnly: true,
+        }}
         value={props.paymentType}
       />
       <div className="payment-total">

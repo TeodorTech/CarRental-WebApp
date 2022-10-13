@@ -50,98 +50,96 @@ export default function RentCar() {
   }
 
   return (
-    <>
-      <div className="rentcar-grid">
-        <div className="car-data">
-          <h1 className="car-title">
-            {carData.make} {carData.model} {carData.year}
-          </h1>
-          <img src={carData.imageLink} />
-        </div>
-        <div className="date-picker">
-          <h1>Booking Details:</h1>
-          <LocalizationProvider dateAdapter={AdapterDayjs}>
-            <MobileDatePicker
-              name="startDate"
-              label="Start Date"
-              value={start}
-              onChange={(newValue) => {
-                setBookDetails((oldBook) => {
-                  return {
-                    ...oldBook,
-                    // startDate: newValue,
-                    startDate: dayjs(newValue).format("YYYY-MM-DD"),
-                  };
-                });
-                setStart(newValue);
-              }}
-              renderInput={(params) => <TextField {...params} />}
-            />
-
-            <MobileDatePicker
-              name="endDate"
-              label="End Date"
-              value={end}
-              onChange={(newValue) => {
-                setBookDetails((oldBook) => {
-                  return {
-                    ...oldBook,
-                    // endDate: newValue,
-                    endDate: dayjs(newValue).format("YYYY-MM-DD"),
-                  };
-                });
-                setEnd(newValue);
-              }}
-              renderInput={(params) => <TextField {...params} />}
-            />
-          </LocalizationProvider>
-          <TextField
-            id="select"
-            label="Payment"
-            value={payment}
-            name="payment"
-            onChange={(event) => {
-              setPayment(event.target.value);
-            }}
-            select
-          >
-            <MenuItem value={"card"}>Card</MenuItem>
-            <MenuItem value={"cash"}>Cash</MenuItem>
-            <MenuItem value={"crypto"}>Crypto</MenuItem>
-          </TextField>
-
-          <Button
-            variant="contained"
-            color="warning"
-            onClick={() => {
-              setValue(true);
+    <div className="rentcar-grid">
+      <div className="car-data">
+        <h1 className="car-title">
+          {carData.make} {carData.model} {carData.year}
+        </h1>
+        <img src={carData.imageLink} />
+      </div>
+      <div className="date-picker">
+        <h1>Booking Details:</h1>
+        <LocalizationProvider dateAdapter={AdapterDayjs}>
+          <MobileDatePicker
+            name="startDate"
+            label="Start Date"
+            value={start}
+            onChange={(newValue) => {
               setBookDetails((oldBook) => {
                 return {
                   ...oldBook,
                   // startDate: newValue,
-                  totalCost: `${totalDays * carData.pricePerDay}`,
+                  startDate: dayjs(newValue).format("YYYY-MM-DD"),
                 };
               });
+              setStart(newValue);
             }}
-            // onClick={handleClickRent}
-          >
-            CALCULATE
-          </Button>
-        </div>
-        {value && (
-          <RentCarForm
-            userName={auth.authUserName}
-            car={carData.make}
-            period={bookDetails.startDate}
-            days={totalDays}
-            paymentType={payment}
-            total={totalDays * carData.pricePerDay}
-            handleClickRent={handleClickRent}
-            isRent={isRent}
-            checkout={checkout}
+            renderInput={(params) => <TextField {...params} />}
           />
-        )}
+
+          <MobileDatePicker
+            name="endDate"
+            label="End Date"
+            value={end}
+            onChange={(newValue) => {
+              setBookDetails((oldBook) => {
+                return {
+                  ...oldBook,
+                  // endDate: newValue,
+                  endDate: dayjs(newValue).format("YYYY-MM-DD"),
+                };
+              });
+              setEnd(newValue);
+            }}
+            renderInput={(params) => <TextField {...params} />}
+          />
+        </LocalizationProvider>
+        <TextField
+          id="select"
+          label="Payment"
+          value={payment}
+          name="payment"
+          onChange={(event) => {
+            setPayment(event.target.value);
+          }}
+          select
+        >
+          <MenuItem value={"card"}>Card</MenuItem>
+          <MenuItem value={"cash"}>Cash</MenuItem>
+          <MenuItem value={"crypto"}>Crypto</MenuItem>
+        </TextField>
+
+        <Button
+          variant="contained"
+          color="warning"
+          onClick={() => {
+            setValue(true);
+            setBookDetails((oldBook) => {
+              return {
+                ...oldBook,
+                // startDate: newValue,
+                totalCost: `${totalDays * carData.pricePerDay}`,
+              };
+            });
+          }}
+          // onClick={handleClickRent}
+        >
+          CALCULATE
+        </Button>
       </div>
-    </>
+      {value && (
+        <RentCarForm
+          userName={auth.authUserName}
+          car={carData.make}
+          period={bookDetails.startDate}
+          days={totalDays}
+          paymentType={payment}
+          total={totalDays * carData.pricePerDay}
+          handleClickRent={handleClickRent}
+          isRent={isRent}
+          checkout={checkout}
+        />
+      )}
+    </div>
   );
 }

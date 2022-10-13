@@ -37,10 +37,11 @@ export default function CarSelector() {
   async function SelectCars(formData) {
     const response = await axios
       .get(
-        `https://localhost:7286/api/car/carselector/${formData.make}/${formData.price}/${formData.color}`
+        `https://localhost:7286/api/car/carselector?make=${formData.make}&price=${formData.price}&color=${formData.color}`
       )
       .then((response) => setFilteredCars(response.data))
       .then(setRedirect(true));
+    // .then((response) => console.log(response.data));
   }
 
   return (
@@ -78,7 +79,7 @@ export default function CarSelector() {
           name="price"
           value={formData.price}
           label="PricePerDay"
-          variant="outlined"
+          variant="filled"
           onChange={handleChange}
         />
         <div className="select-btn">

@@ -93,7 +93,6 @@ export default function Fleet() {
         {auth.authUserName === "admin" && (
           <Button
             variant="contained"
-            size="medium"
             startIcon={<DeleteIcon />}
             color="error"
             onClick={() => {
@@ -108,7 +107,6 @@ export default function Fleet() {
         {auth.authUserName === "admin" && (
           <Button
             variant="contained"
-            size="medium"
             color="warning"
             endIcon={<SaveIcon />}
             onClick={() => {

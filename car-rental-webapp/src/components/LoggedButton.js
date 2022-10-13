@@ -23,12 +23,12 @@ export default function LoggedButton() {
         aria-controls={open ? "basic-menu" : undefined}
         aria-haspopup="true"
         aria-expanded={open ? "true" : undefined}
-        size="large"
+        size="medium"
         variant="outlined"
         onClick={handleClick}
         startIcon={<AccountCircleIcon />}
       >
-        Hello,{auth.authUserName}
+        Hello, {auth.authUserName}
       </Button>
       <Menu
         id="basic-menu"

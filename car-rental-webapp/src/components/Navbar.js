@@ -31,16 +31,6 @@ export default function Layout() {
           <h1>Luxury Car Rental</h1>
         </div>
         <ul>
-          {auth.authUserName === "admin" && (
-            <li>
-              <Link
-                style={{ textDecoration: "none", color: "black" }}
-                to="/dash"
-              >
-                DASHBOARD
-              </Link>
-            </li>
-          )}
           <li>
             {auth.authUserName ? (
               <LoggedButton />
