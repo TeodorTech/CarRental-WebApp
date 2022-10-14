@@ -24,7 +24,7 @@ body {
   font-size: 1.5rem;
 }
 
-.home-title-flex p:nth-child(2) {
+.home-title-flex p:nth-child(1) {
   background-color: rgba(255, 255, 255, 0.781);
   color: rgb(52, 65, 253);
   padding: 5px;
@@ -56,18 +56,25 @@ body {
   font-size: 1.3rem;
 }
 .home-featuredcars {
+  margin: 75px;
   grid-column: span 2;
-}
-.featuredcars-title {
-  font-size: 1.5rem;
+  background-color: white;
+  border-radius: 10px;
   text-align: center;
-  color: white;
+}
+.home-featuredcars p {
+  font-size: 1rem;
+  font-weight: bold;
 }
 
 .featuredcars-flex {
   display: flex;
   justify-content: space-evenly;
   gap: 2rem;
+}
+
+.featuredcars-flex a:hover {
+  opacity: 0.8;
 }
 .featured-car {
   border-radius: 1rem;
@@ -83,10 +90,7 @@ body {
     height: 100%;
     gap: 2rem;
   }
-  .featuredcars-flex {
-    display: none;
-  }
-  .featuredcars-title {
+  .home-featuredcars {
     display: none;
   }
   .home-title-flex p:nth-child(3) {

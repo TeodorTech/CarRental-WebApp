@@ -4,7 +4,7 @@ import "./home-style.css";
 import porche from "./../../assets/porche911.png";
 import r8 from "./../../assets/r8.png";
 import gwagon from "./../../assets/gWagon.jpg";
-import { Link } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 import Button from "@mui/material/Button";
 import ModalDialog from "./ModalDialog";
@@ -25,6 +25,7 @@ export default function Home() {
   const handleClose = () => {
     setOpen(false);
   };
+  const navigate = useNavigate();
 
   const { auth, setAuth } = useContext(AuthContext);
   // function handleAuth() {
@@ -36,10 +37,10 @@ export default function Home() {
     <div className="home-main">
       <div className="home-title">
         <div className="home-title-flex">
-          <p>LUXURY CAR RENTAL</p>
           <p>
             <b>Start Driving Today!</b>
           </p>
+          <p>LUXURY CAR RENTAL</p>
           <p> Rent the best cars from us at the best prices on the market.</p>
           <div className="select-btn">
             {auth.authUserName ? (
@@ -59,16 +60,18 @@ export default function Home() {
           <h1>Featured Cars</h1>
         </div>
         <div className="featuredcars-flex">
-          <a href="#">
+          <a href="fleet">
             <img className="featured-car" src={r8} />
           </a>
-          <a href="#">
+          <a href="fleet">
             <img className="featured-car" src={gwagon} />
           </a>
-          <a href="#">
+          <a href="fleet">
             <img className="featured-car" src={porche} />
           </a>
         </div>
+        <p>For More Luxury Cars Go To Fleet!</p>
+        <Button onClick={() => navigate("fleet")}>More Cars</Button>
       </div>
     </div>
   );

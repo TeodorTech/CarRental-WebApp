@@ -47,6 +47,9 @@ export default function CarSelector() {
   return (
     <div sx={{ minWidth: 120 }}>
       <FormControl className="carselector-box" fullWidth>
+        <p>
+          <b>Describe the perfect car!</b>
+        </p>
         <TextField
           className="textfield"
           id="select"

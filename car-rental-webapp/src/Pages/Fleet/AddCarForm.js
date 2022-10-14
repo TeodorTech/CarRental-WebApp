@@ -1,10 +1,12 @@
 import { useState } from "react";
 import { TextField, Button, Alert } from "@mui/material";
 import { useForm } from "react-hook-form";
+import { v4 as uuidv4 } from "uuid";
 
 import axios from "axios";
 
 export default function AddCarForm({ handleClose, getCars }) {
+  const [isFilePicked, setIsFilePicked] = useState(false);
   const { register, handleSubmit } = useForm({
     defaultValues: {
       make: "",
@@ -12,14 +14,24 @@ export default function AddCarForm({ handleClose, getCars }) {
       color: "",
       year: "",
       pricePerDay: "",
-      imageLink: "",
+      // imageLink: `https://carsphotos.blob.core.windows.net/photos/${fileName}`,
     },
   });
   const [carAdded, setCarAdded] = useState(false);
 
   async function handleFormSubmit(data) {
+    let uniqueId = uuidv4();
+    handleSubmission(uniqueId, data.imageLink[0]);
+    const dataToPost = {
+      make: data.make,
+      model: data.model,
+      color: data.color,
+      year: data.year,
+      pricePerDay: data.pricePerDay,
+      imageLink: `https://carsphotos.blob.core.windows.net/photos/${data.imageLink[0].name}_${uniqueId}`,
+    };
     const response = await axios
-      .post("https://localhost:7286/api/car", data)
+      .post("https://localhost:7286/api/car", dataToPost)
       .then(() => {
         setCarAdded(true);
         setTimeout(() => {
@@ -29,6 +41,17 @@ export default function AddCarForm({ handleClose, getCars }) {
         }, 2000);
       });
   }
+
+  async function handleSubmission(id, selectedFile) {
+    const formData = new FormData();
+    formData.append("files", selectedFile);
+    const response = await axios
+      .post(`https://localhost:7286/api/File/UploadFile?id=${id}`, formData)
+      .then((response) => {
+        console.log(response.data);
+      });
+  }
+
   return (
     <form className="form-flex" onSubmit={handleSubmit(handleFormSubmit)}>
       {carAdded && <Alert>Car Added Succesfuly</Alert>}
@@ -53,11 +76,17 @@ export default function AddCarForm({ handleClose, getCars }) {
         variant="filled"
         required
       />
-      <TextField
+      {/* <TextField
         label="Car Image"
         {...register("imageLink")}
         variant="filled"
         required
+      /> */}
+      <TextField
+        type="file"
+        name="imageLink"
+        accept=".jpg, .png"
+        {...register("imageLink")}
       />
 
       {/* <TextField label="Password"name="password" variant="filled" type="password" required /> */}
