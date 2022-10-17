@@ -31,36 +31,39 @@ export default function MyAccount() {
     }, 2000);
   }
   const books = bookingsArray.map((book) => (
-    <div key={book.bookingId} className="book-grid">
-      <h4> Car Name</h4>
-      <h4> Start Day</h4>
-      <h4>End Day</h4>
-      <h4>Total Cost</h4>
-      <Button
-        variant="contained"
-        size="small"
-        style={{ marginTop: "50px" }}
-        startIcon={<DeleteIcon />}
-        color="error"
-        onClick={() => {
-          if (window.confirm("Are you sure you want to delete?")) {
-            deleteCar(book.bookingId);
-          }
-        }}
-      >
-        Cancel Book
-      </Button>
-      <h4>{book.carMake}</h4>
-      <h4>{book.startDate}</h4>
-      <h4>{book.endDate}</h4>
-      <h4>{book.totalCost} $</h4>
+    <div key={book.bookingId}>
+      <div className="book-grid">
+        <h4> Car Name</h4>
+        <h4> Start Day</h4>
+        <h4>End Day</h4>
+        <h4>Total Cost</h4>
+
+        <DeleteIcon
+          className="delete-icon"
+          color="error"
+          style={{ marginTop: "15px" }}
+          onClick={() => {
+            if (window.confirm("Are you sure you want to delete?")) {
+              deleteCar(book.bookingId);
+            }
+          }}
+        />
+        <h4>{book.carMake}</h4>
+        <h4>{book.startDate}</h4>
+        <h4>{book.endDate}</h4>
+        <h4>{book.totalCost} $</h4>
+      </div>
     </div>
   ));
 
   return (
     <>
-      <h1>Hello Driver!</h1>
-      <h2 style={{ textAlign: "center" }}>You have the following bookings!</h2>
+      <div className="title">
+        <h1>Hello Driver!</h1>
+        <h2 style={{ textAlign: "center" }}>
+          You have the following bookings!
+        </h2>
+      </div>
       <div className="books-main">{books}</div>
     </>
   );

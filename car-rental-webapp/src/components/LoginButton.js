@@ -6,7 +6,7 @@ export default function LoginButtton({ handleOpen }) {
   return (
     <div className="li-login" onClick={handleOpen}>
       <Button size="large" variant="outlined" startIcon={<LoginIcon />}>
-        LogIn
+        <p>LogIn</p>
       </Button>
     </div>
   );

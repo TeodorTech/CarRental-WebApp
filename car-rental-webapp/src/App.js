@@ -1,4 +1,3 @@
-import logo from "./logo.svg";
 import "./App.css";
 import Home from "./Pages/Home/home";
 import Navbar from "./components/Navbar";
@@ -21,6 +20,7 @@ export default function App() {
           <Route path="dash" element={<Dashboard />} />
           <Route path="fleet/rentcar/myaccount" element={<MyAccount />} />
           <Route path="myaccount" element={<MyAccount />} />
+          <Route path="filteredcars/rentcar" element={<RentCar />} />
 
           {/* <Route path="*" element={<NoPage />} /> */}
         </Route>

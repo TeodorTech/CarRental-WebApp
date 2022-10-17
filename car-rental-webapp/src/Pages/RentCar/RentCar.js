@@ -131,9 +131,9 @@ export default function RentCar() {
         <RentCarForm
           userName={auth.authUserName}
           car={carData.make}
-          period={bookDetails.startDate}
+          period={bookDetails.startDate + "-> " + bookDetails.endDate}
           days={totalDays}
-          paymentType={payment}
+          paymentType={payment.toUpperCase()}
           total={totalDays * carData.pricePerDay}
           handleClickRent={handleClickRent}
           isRent={isRent}

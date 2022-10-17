@@ -16,3 +16,24 @@
   margin: 20px;
   background-color: #0e131fdc;
 }
+.delete-icon {
+  display: none;
+}
+/* .cancel-button {
+  grid-column: 4/ 4;
+} */
+
+@media (max-width: 400px) {
+  .book-grid {
+    font-size: 12px;
+  }
+  .cancel-button {
+    display: none;
+  }
+  .title {
+    color: white;
+  }
+  .delete-icon {
+    display: block;
+  }
+}

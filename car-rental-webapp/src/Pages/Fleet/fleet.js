@@ -17,6 +17,7 @@ import AttachMoneyIcon from "@mui/icons-material/AttachMoney";
 import CarCrashIcon from "@mui/icons-material/CarCrash";
 import CalendarMonthIcon from "@mui/icons-material/CalendarMonth";
 import Chip from "@mui/material/Chip";
+import CarCard from "./CarCard";
 
 export default function Fleet() {
   const [carsArray, setCarsArray] = useState([]);
@@ -26,7 +27,7 @@ export default function Fleet() {
 
   useEffect(() => {
     getCars();
-  }, []);
+  }, [deleteCar]);
 
   // declare a new state variable for modal open
   const [openAdd, setOpenAdd] = useState(false);
@@ -41,18 +42,6 @@ export default function Fleet() {
     setOpenAdd(false);
   };
 
-  // declare a new state variable for modal open
-  const [openUpdate, setOpenUpdate] = useState(false);
-
-  // function to handle modal open
-  const handleOpenUpdate = () => {
-    setOpenUpdate(true);
-  };
-
-  // function to handle modal close
-  const handleCloseUpdate = () => {
-    setOpenUpdate(false);
-  };
   const navigate = useNavigate();
 
   async function getCars() {
@@ -63,7 +52,7 @@ export default function Fleet() {
 
   async function deleteCar(carId) {
     await axios.delete(`https://localhost:7286/api/car/${carId}`);
-    getCars();
+    // getCars();
     setShowAlert(true);
 
     setTimeout(() => {
@@ -72,68 +61,13 @@ export default function Fleet() {
   }
 
   const make = carsArray.map((car) => (
-    <div key={car.id} className="make">
-      <div className="make-grid">
-        <img src={car.imageLink} />
-        <div
-          className="car-specs-flex"
-          style={{ marginBottom: "20px", marginTop: "20px" }}
-        >
-          <Chip
-            icon={<CarCrashIcon />}
-            label={car.make + " " + car.model}
-            style={{ fontFamily: "15px", fontWeight: "bold" }}
-          />
-          <Chip icon={<CalendarMonthIcon />} label={car.year} />
-          <Chip icon={<PaletteIcon />} label={car.color} />
-          <Chip icon={<AttachMoneyIcon />} label={car.pricePerDay + " /Day"} />
-        </div>
-      </div>
-      <Stack direction="row" spacing={2} style={{ marginBottom: "20px" }}>
-        {auth.authUserName === "admin" && (
-          <Button
-            variant="contained"
-            startIcon={<DeleteIcon />}
-            color="error"
-            onClick={() => {
-              if (window.confirm("Are you sure you want to delete?")) {
-                deleteCar(car.id);
-              }
-            }}
-          >
-            Delete
-          </Button>
-        )}
-        {auth.authUserName === "admin" && (
-          <Button
-            variant="contained"
-            color="warning"
-            endIcon={<SaveIcon />}
-            onClick={() => {
-              setCarToUpdate(car);
-              handleOpenUpdate();
-            }}
-          >
-            Update
-          </Button>
-        )}
-        <UpdateCarModalDialog
-          open={openUpdate}
-          handleClose={handleCloseUpdate}
-          getCars={getCars}
-          updateCar={carToUpdate}
-        />
-        <Button
-          variant="contained"
-          endIcon={<CreditCardIcon />}
-          onClick={() => {
-            navigate("rentcar", { state: { car } });
-          }}
-        >
-          Rent
-        </Button>
-      </Stack>
-    </div>
+    <CarCard
+      key={car.id}
+      car={car}
+      auth={auth}
+      deleteCar={deleteCar}
+      getCars={getCars}
+    />
   ));
   return (
     <div className="fleet-container">

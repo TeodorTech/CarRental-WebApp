@@ -6,7 +6,6 @@ import { v4 as uuidv4 } from "uuid";
 import axios from "axios";
 
 export default function AddCarForm({ handleClose, getCars }) {
-  const [isFilePicked, setIsFilePicked] = useState(false);
   const { register, handleSubmit } = useForm({
     defaultValues: {
       make: "",
@@ -14,7 +13,6 @@ export default function AddCarForm({ handleClose, getCars }) {
       color: "",
       year: "",
       pricePerDay: "",
-      // imageLink: `https://carsphotos.blob.core.windows.net/photos/${fileName}`,
     },
   });
   const [carAdded, setCarAdded] = useState(false);
@@ -76,12 +74,7 @@ export default function AddCarForm({ handleClose, getCars }) {
         variant="filled"
         required
       />
-      {/* <TextField
-        label="Car Image"
-        {...register("imageLink")}
-        variant="filled"
-        required
-      /> */}
+
       <TextField
         type="file"
         name="imageLink"
@@ -89,7 +82,6 @@ export default function AddCarForm({ handleClose, getCars }) {
         {...register("imageLink")}
       />
 
-      {/* <TextField label="Password"name="password" variant="filled" type="password" required /> */}
       <div className="ButtonGroup">
         <Button variant="contained" onClick={handleClose} color="secondary">
           Cancel

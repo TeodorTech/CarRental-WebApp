@@ -27,3 +27,13 @@ nav ul {
   display: flex;
   justify-content: center;
 }
+
+@media (max-width: 400px) {
+  .nav-title h1 {
+    font-size: 15px;
+  }
+  .li-login p,
+  .logged-button p {
+    display: none;
+  }
+}

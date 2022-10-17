@@ -18,7 +18,7 @@ export default function LoggedButton() {
   const navigate = useNavigate();
 
   return (
-    <div>
+    <div className="logged-button">
       <Button
         aria-controls={open ? "basic-menu" : undefined}
         aria-haspopup="true"
@@ -28,7 +28,7 @@ export default function LoggedButton() {
         onClick={handleClick}
         startIcon={<AccountCircleIcon />}
       >
-        Hello, {auth.authUserName}
+        <p>Hello, {auth.authUserName}</p>
       </Button>
       <Menu
         id="basic-menu"

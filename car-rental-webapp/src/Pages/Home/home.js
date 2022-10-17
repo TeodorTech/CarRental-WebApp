@@ -70,7 +70,7 @@ export default function Home() {
             <img className="featured-car" src={porche} />
           </a>
         </div>
-        <p>For More Luxury Cars Go To Fleet!</p>
+        <p>For More Luxury Cars Check Our Fleet!</p>
         <Button onClick={() => navigate("fleet")}>More Cars</Button>
       </div>
     </div>

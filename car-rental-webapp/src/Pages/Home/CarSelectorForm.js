@@ -53,21 +53,23 @@ export default function CarSelector() {
         <TextField
           className="textfield"
           id="select"
-          label="Make"
+          label="Who made the car?"
           value={formData.make}
           name="make"
           onChange={handleChange}
           select
         >
-          <MenuItem value={"ferrari"}>Ferrari</MenuItem>
           <MenuItem value={"bmw"}>BMW</MenuItem>
+          <MenuItem value={"ferrari"}>Ferrari</MenuItem>
           <MenuItem value={"porsche"}>Porsche</MenuItem>
+          <MenuItem value={"mercedes"}>Mercedes</MenuItem>
+          <MenuItem value={"audi"}>Audi</MenuItem>
+          <MenuItem value={"lamborghini"}>Lamborghini</MenuItem>
         </TextField>
-
         <TextField
           className="textfield"
           id="select"
-          label="Color"
+          label="What color is the car?"
           value={formData.color}
           name="color"
           onChange={handleChange}
@@ -76,12 +78,14 @@ export default function CarSelector() {
           <MenuItem value={"white"}>White</MenuItem>
           <MenuItem value={"black"}>Black</MenuItem>
           <MenuItem value={"red"}>Red</MenuItem>
+          <MenuItem value={"red"}>Green</MenuItem>
+          <MenuItem value={"red"}>Blue</MenuItem>
         </TextField>
         <TextField
           className="textfield"
           name="price"
           value={formData.price}
-          label="PricePerDay"
+          label="How much for the car?"
           variant="filled"
           onChange={handleChange}
         />
